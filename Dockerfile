@@ -22,8 +22,8 @@ COPY backend/ .
 
 RUN python manage.py migrate
 
-# ✅ CRÉER L'ADMIN AVEC TOUS LES CHAMPS
-RUN python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(telephone='+243971268236').delete(); User.objects.create_superuser(telephone='+243971268236', username='admin', first_name='Admin', last_name='Mipanga', email='admin@mipanga.com', password='Mipanga2025!', province='Lubumbashi', territoire='Lubumbashi'); print('✅ Admin créé avec téléphone +243971268236')"
+# ✅ COMMANDE SUR UNE SEULE LIGNE
+RUN python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); user, created = User.objects.get_or_create(telephone='+243971268236', defaults={'username': 'admin', 'first_name': 'Admin', 'last_name': 'Mipanga', 'email': 'admin@mipanga.com', 'is_superuser': True, 'is_staff': True, 'province': 'Lubumbashi', 'territoire': 'Lubumbashi'}); user.set_password('Mipanga2025!'); user.save(); print('✅ Admin créé/mis à jour avec succès')"
 
 RUN python manage.py collectstatic --noinput
 
