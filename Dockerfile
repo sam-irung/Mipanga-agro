@@ -21,7 +21,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ .
 
 RUN python manage.py migrate
-RUN python create_admin.py
+
+# ✅ CRÉER L'ADMIN AVEC TOUS LES CHAMPS
+RUN python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(telephone='+243971268236').delete(); User.objects.create_superuser(telephone='+243971268236', username='admin', first_name='Admin', last_name='Mipanga', email='admin@mipanga.com', password='Mipanga2025!', province='Lubumbashi', territoire='Lubumbashi'); print('✅ Admin créé avec téléphone +243971268236')"
+
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
