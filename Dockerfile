@@ -29,6 +29,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier tout le code backend
 COPY backend/ .
 
+RUN python manage.py migrate
+
 # Créer le superutilisateur
 RUN python create_superuser.py
 
