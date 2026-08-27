@@ -1,6 +1,7 @@
 // frontend/src/context/DashboardContext.tsx
 
-import React, { createContext, useState, useContext, useEffect, ReactNode, useCallback } from 'react';
+import { createContext, useState, useContext, useEffect, ReactNode, useCallback } from 'react';
+
 import { dashboardService } from '@/api';
 
 // Types
