@@ -29,6 +29,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier tout le code backend
 COPY backend/ .
 
+# Créer le superutilisateur
+RUN python create_superuser.py
+
 # Collecter les fichiers statiques (avec SECRET_KEY temporaire)
 RUN python manage.py collectstatic --noinput
 
