@@ -5,6 +5,9 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+# Définir une SECRET_KEY temporaire pour la construction
+ENV SECRET_KEY=django-insecure-build-temp-key-do-not-use-in-production
+
 # Installer les dépendances système nécessaires pour Pillow
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -26,7 +29,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier tout le code backend
 COPY backend/ .
 
-# Collecter les fichiers statiques
+# Collecter les fichiers statiques (avec SECRET_KEY temporaire)
 RUN python manage.py collectstatic --noinput
 
 # Exposer le port
