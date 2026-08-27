@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-dev-key')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 # Hôtes autorisés
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 # Applications installées
 INSTALLED_APPS = [
@@ -108,11 +108,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS
-CORS_ALLOW_ALL_ORIGINS = True
+#CORS_ALLOW_ALL_ORIGINS = True
 # En production, utilisez :
-# CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'https://votre-frontend.com']
-
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173,http://localhost:3000').split(',')
+CORS_ALLOW_CREDENTIALS = True
 # JWT
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
