@@ -21,10 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ .
 
 RUN python manage.py migrate
-
-# ✅ La commande doit être sur UNE SEULE LIGNE avec des guillemets simples
-RUN python manage.py shell -c 'from django.contrib.auth import get_user_model; User = get_user_model(); user, created = User.objects.get_or_create(telephone="+243971268236", defaults={"username": "admin", "first_name": "Admin", "last_name": "Mipanga", "email": "admin@mipanga.com", "province": "Haut-katanga", "territoire": "Lubumbashi", "is_superuser": True, "is_staff": True}); user.set_password("Mipanga2025!"); user.save(); print("✅ Superuser created")'
-
+RUN python create_admin.py
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
