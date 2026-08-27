@@ -2,8 +2,6 @@ FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-
-# ✅ Définir SECRET_KEY pour le build
 ENV SECRET_KEY=django-insecure-build-temp-key-do-not-use-in-production
 ENV OPENROUTER_API_KEY=dummy-key-for-build
 
@@ -22,13 +20,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ .
 
-# ✅ 1. Migrations
 RUN python manage.py migrate
 
-# ✅ 2. Créer le superutilisateur (TOUT SUR UNE SEULE LIGNE)
-RUN python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); user, created = User.objects.get_or_create(username='admin', defaults={'email':'admin@mipanga.com', 'is_superuser':True, 'is_staff':True, 'telephone':'+243971268236'}); user.set_password('Mipanga2025!'); user.save(); print('✅ Superuser created with telephone')"
+# ✅ La commande doit être sur UNE SEULE LIGNE avec des guillemets simples
+RUN python manage.py shell -c 'from django.contrib.auth import get_user_model; User = get_user_model(); user, created = User.objects.get_or_create(telephone="+243971268236", defaults={"username": "admin", "first_name": "Admin", "last_name": "Mipanga", "email": "admin@mipanga.com", "province": "Lubumbashi", "territoire": "Lubumbashi", "is_superuser": True, "is_staff": True}); user.set_password("Mipanga2025!"); user.save(); print("✅ Superuser created")'
 
-# ✅ 3. Collecter les fichiers statiques
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
