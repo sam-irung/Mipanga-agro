@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: mipanga-agro-2
+    runtime: image
+    repo: https://github.com/sam-irung/Mipanga-agro
+    plan: free
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        value: "django-insecure-MQPcXxmAM8N79uGZBgz42MEEbX-z9oy9UwXStDfAOzUpuq9Uvg3FJCUtNVUrjGlA-6k"
+      - key: ALLOWED_HOSTS
+        value: "mipanga-agro-2.onrender.com,localhost,127.0.0.1"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mipanga-agro-db
+          property: connectionString
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://mipanga-agro-43cncpt18-sam-irung1.vercel.app,https://mipanga-agro.vercel.app,http://localhost:5173,http://localhost:3000"
+      # ✅ SUPPRIMER la clé OpenRouter du fichier
