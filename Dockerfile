@@ -25,8 +25,8 @@ COPY backend/ .
 # ✅ 1. Migrations
 RUN python manage.py migrate
 
-# ✅ 2. Créer le superutilisateur
-RUN python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.get_or_create(username='admin', defaults={'email':'admin@mipanga.com', 'is_superuser':True, 'is_staff':True}); user=User.objects.get(username='admin'); user.set_password('Mipanga2025!'); user.save(); print('✅ Superuser created')"
+# ✅ 2. Créer le superutilisateur (TOUT SUR UNE SEULE LIGNE)
+RUN python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); user, created = User.objects.get_or_create(username='admin', defaults={'email':'admin@mipanga.com', 'is_superuser':True, 'is_staff':True, 'telephone':'+243971268236'}); user.set_password('Mipanga2025!'); user.save(); print('✅ Superuser created with telephone')"
 
 # ✅ 3. Collecter les fichiers statiques
 RUN python manage.py collectstatic --noinput
