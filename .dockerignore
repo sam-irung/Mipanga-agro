@@ -16,3 +16,4 @@ frontend/
 .idea/
 *.log
 .DS_Store
+README.md

@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
-import dj_database_url  # ← IMPORTANT: Ajout pour PostgreSQL
+import dj_database_url
 
 # Charger les variables d'environnement
 load_dotenv()
@@ -11,16 +11,12 @@ load_dotenv()
 # CONFIGURATION DE BASE
 # ============================================================================
 
-# Chemin de base du projet
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Clé secrète (utilise une variable d'environnement en production)
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-dev-key')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-# Mode debug (False par défaut en production)
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-# Hôtes autorisés
 ALLOWED_HOSTS = [
     host.strip()
     for host in os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
@@ -32,7 +28,6 @@ ALLOWED_HOSTS = [
 # ============================================================================
 
 INSTALLED_APPS = [
-    # Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,7 +60,7 @@ INSTALLED_APPS = [
 # ============================================================================
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Doit être en premier
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -74,10 +69,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# ============================================================================
-# URLS ET TEMPLATES
-# ============================================================================
 
 ROOT_URLCONF = 'mipanga_agro.urls'
 
@@ -114,18 +105,10 @@ DATABASES = {
 # ============================================================================
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # ============================================================================
@@ -143,9 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -153,25 +134,19 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ============================================================================
-# CORS (Cross-Origin Resource Sharing)
+# CORS
 # ============================================================================
 
 CORS_ALLOWED_ORIGINS = [
     origin.strip()
-    for origin in os.getenv(
-        'CORS_ALLOWED_ORIGINS',
-        'http://localhost:5173,http://localhost:3000'
-    ).split(',')
+    for origin in os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173,http://localhost:3000').split(',')
     if origin.strip()
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
-# En développement uniquement, décommentez la ligne ci-dessous
-# CORS_ALLOW_ALL_ORIGINS = True
-
 # ============================================================================
-# JWT (JSON Web Tokens)
+# JWT
 # ============================================================================
 
 SIMPLE_JWT = {
@@ -198,12 +173,12 @@ REST_FRAMEWORK = {
 }
 
 # ============================================================================
-# SWAGGER / OPENAPI (drf-spectacular)
+# SWAGGER / OPENAPI
 # ============================================================================
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Mipanga Agro API',
-    'DESCRIPTION': 'API pour l\'assistant agricole intelligent en RDC',
+    'DESCRIPTION': "API pour l'assistant agricole intelligent en RDC",
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'COMPONENT_SPLIT_REQUEST': True,
@@ -227,46 +202,10 @@ CACHES = {
 }
 
 # ============================================================================
-# LOGGING (Optionnel - pour le débogage)
+# VARIABLES D'ENVIRONNEMENT
 # ============================================================================
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-            'propagate': False,
-        },
-    },
-}
-
-# ============================================================================
-# VARIABLES D'ENVIRONNEMENT PERSONNALISÉES
-# ============================================================================
-
-# OpenRouter pour l'IA
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '')
-OPENROUTER_API_URL = os.getenv(
-    'OPENROUTER_API_URL',
-    'https://openrouter.ai/api/v1/chat/completions'
-)
-
-# Open-Meteo (gratuit, sans clé)
-OPENMETEO_API_URL = os.getenv(
-    'OPENMETEO_API_URL',
-    'https://api.open-meteo.com/v1/forecast'
-)
-
-# Site URL pour les liens dans les emails (si utilisé)
+OPENROUTER_API_URL = os.getenv('OPENROUTER_API_URL', 'https://openrouter.ai/api/v1/chat/completions')
+OPENMETEO_API_URL = os.getenv('OPENMETEO_API_URL', 'https://api.open-meteo.com/v1/forecast')
 SITE_URL = os.getenv('SITE_URL', 'https://mipanga-agro.vercel.app')
