@@ -1,0 +1,42 @@
+[
+  {
+    "model": "cultures.culture",
+    "pk": 1,
+    "fields": {
+      "code": "MAIS",
+      "nom": "Maïs",
+      "duree_cycle": 120,
+      "description": "Culture vivrière de base en RDC"
+    }
+  },
+  {
+    "model": "cultures.culture",
+    "pk": 2,
+    "fields": {
+      "code": "MANIOC",
+      "nom": "Manioc",
+      "duree_cycle": 300,
+      "description": "Culture vivrière de base en RDC"
+    }
+  },
+  {
+    "model": "cultures.culture",
+    "pk": 3,
+    "fields": {
+      "code": "HARICOT",
+      "nom": "Haricot",
+      "duree_cycle": 90,
+      "description": "Culture légumineuse riche en protéines"
+    }
+  },
+  {
+    "model": "cultures.culture",
+    "pk": 4,
+    "fields": {
+      "code": "ARACHIDE",
+      "nom": "Arachide",
+      "duree_cycle": 120,
+      "description": "Culture oléagineuse"
+    }
+  }
+]

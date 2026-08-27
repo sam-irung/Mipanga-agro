@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+@layer base {
+  :root {
+    /* Primary - Green (#2E7D32) */
+    --primary: 122 47% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Orange (#F9A825) */
+    --secondary: 41 95% 56%;
+    --secondary-foreground: 30 50% 15%;
+
+    /* Background & surfaces */
+    --background: 210 17% 98%;
+    --foreground: 0 0% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+
+    /* Muted / accents */
+    --muted: 120 20% 96%;
+    --muted-foreground: 0 0% 46%;
+    --accent: 120 30% 95%;
+    --accent-foreground: 122 47% 28%;
+
+    /* Status colors */
+    --destructive: 0 71% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 122 47% 38%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 96% 49%;
+    --warning-foreground: 30 50% 15%;
+    --info: 210 100% 45%;
+    --info-foreground: 0 0% 100%;
+
+    /* Borders / inputs / rings */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 122 47% 38%;
+
+    /* Chart palette */
+    --chart-1: 122 47% 38%;
+    --chart-2: 41 95% 56%;
+    --chart-3: 0 71% 51%;
+    --chart-4: 45 96% 49%;
+    --chart-5: 210 100% 45%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Leaflet overrides */
+.leaflet-container {
+  font-family: Inter, sans-serif;
+  border-radius: 0.75rem;
+  z-index: 0;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 0.5rem;
+}
